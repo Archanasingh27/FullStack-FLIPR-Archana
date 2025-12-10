@@ -1,10 +1,10 @@
 
 import React, { useState } from "react";
-import AdminSidebar from "./AdminSidebar.jsx"; 
-import AdminProjects from "./AdminProjects";
-import AdminClients from "./AdminClients";
-import AdminContacts from "./AdminContacts";
-import AdminSubscribers from "./AdminSubscribers";
+import AdminSidebar from "./admin/AdminSidebar.jsx"; 
+import AdminProjects from "./admin/AdminProjects.jsx";
+import AdminClients from "./admin/AdminClients.jsx";
+import AdminContacts from "./admin/AdminContacts.jsx";
+import AdminSubscribers from "./admin/AdminSubscribers.jsx";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("projects");

@@ -5,7 +5,7 @@ import Clients from "./components/Home/Clients.jsx";
 import Contact from "./components/Home/Contact.jsx";
 import Navbar from "./components/Navbar";
 
-import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminDashboard from "./pages/AdminDashboard.jsx";
 
 
 function App() {
