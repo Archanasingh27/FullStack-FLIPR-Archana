@@ -11,7 +11,7 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/projects");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/projects`);
       setProjects(res.data);
     } catch (error) {
       console.error("Project fetch error:", error);
@@ -20,7 +20,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-20 bg-slate-50 relative overflow-hidden">
-      {/* Background Pattern */}
+      {/* Background  */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -47,9 +47,9 @@ const Projects = () => {
               <div className="h-56 overflow-hidden relative">
                 <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/20 z-10 transition-colors"></div>
 
-                {/* ✅ IMAGE FIXED HERE */}
+                {/* ✅ IMAGE  */}
                 <img
-                  src={`http://localhost:5000/uploads/${project.projectImage}`}
+                  src={`https://fullstack-flipr-archana.onrender.com/uploads/${project.projectImage}`}
                   alt={project.projectName}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
                 />

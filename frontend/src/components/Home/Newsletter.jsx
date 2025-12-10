@@ -11,11 +11,11 @@ const Newsletter = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/subscribe/add",
+        `${import.meta.env.VITE_API_URL}/api/subscribe/add`,
         { email: emailSub }
       );
 
-      // axios only goes here when the response is 2xx
+     
       setSubStatus("success");
       setEmailSub("");
 

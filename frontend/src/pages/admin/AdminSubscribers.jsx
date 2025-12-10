@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+
 const AdminSubscribers = () => {
   const [subs, setSubs] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/subscribe")
+    axios  
+      .get  (`${import.meta.env.VITE_API_URL}/api/subscribe`)
       .then((res) => setSubs(res.data));
   }, []);
 

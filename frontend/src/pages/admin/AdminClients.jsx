@@ -11,9 +11,9 @@ const AdminClients = () => {
     image: null,
   });
 
-  // FETCH CLIENTS
+  
   const fetchClients = async () => {
-    const res = await axios.get("http://localhost:5000/api/clients");
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/clients`);
     setClients(res.data);
   };
 
@@ -31,7 +31,7 @@ const AdminClients = () => {
     formData.append("clientDesignation", form.designation);
     formData.append("clientDescription", form.description);
 
-    await axios.post("http://localhost:5000/api/clients/add", formData);
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/clients/add`, formData);
 
     setForm({ name: "", designation: "", description: "", image: null });
     fetchClients();
@@ -86,7 +86,7 @@ const AdminClients = () => {
         {clients.map((c) => (
           <div key={c._id} className="bg-white p-4 border rounded flex gap-3">
             <img
-              src={`http://localhost:5000/uploads/${c.clientImage}`}
+              src={`https://fullstack-flipr-archana.onrender.com/uploads/${c.clientImage}`}
               className="w-16 h-16 rounded-full object-cover"
             />
 

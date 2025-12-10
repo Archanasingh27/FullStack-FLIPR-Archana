@@ -17,7 +17,7 @@ const navLinks = [
  
 ];
 
-// Social links array
+
 const socialLinks = [
   { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
   { icon: Twitter, href: "https://twitter.com", label: "Twitter" },

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ImageCropper from "../../components/ImageCropper"; // ✅ IMPORT
+import ImageCropper from "../../components/ImageCropper"; 
 
 const AdminProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -14,7 +14,7 @@ const AdminProjects = () => {
   const [showCropper, setShowCropper] = useState(false);
 
   const fetchProjects = async () => {
-    const res = await axios.get("http://localhost:5000/api/projects");
+    const res = await (`${import.meta.env.VITE_API_URL}/api/projects`) ;
     setProjects(res.data);
   };
 

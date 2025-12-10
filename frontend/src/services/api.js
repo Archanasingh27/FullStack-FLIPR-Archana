@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+ VITE_API_URL: "https://fullstack-flipr-archana.onrender.com",
+  baseURL: VITE_API_URL || "http://localhost:5000/api",
+  
 });
 
 export default API;

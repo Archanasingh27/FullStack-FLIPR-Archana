@@ -6,7 +6,7 @@ const AdminContacts = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/contact")
+      .get(`${import.meta.env.VITE_API_URL}/api/contact`)
       .then((res) => setContacts(res.data));
   }, []);
 
