@@ -27,10 +27,11 @@ const Navbar = () => {
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
           ? "bg-white/90 backdrop-blur-md shadow-md py-4"
-          : "bg-black  py-6"
+          : "bg-black py-6"
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
+
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 text-2xl font-bold group">
           <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-orange-500/30 group-hover:scale-110 transition-transform">
@@ -51,11 +52,22 @@ const Navbar = () => {
             <a
               key={item.name}
               href={item.href}
-              className="hover:text-orange-500 transition-colors relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-orange-500 after:transition-all hover:after:w-full"
+              className="hover:text-orange-500 transition-colors relative 
+                     after:content-[''] after:absolute after:-bottom-1 after:left-0 
+                     after:w-0 after:h-0.5 after:bg-orange-500 after:transition-all 
+                     hover:after:w-full"
             >
               {item.name}
             </a>
           ))}
+
+          {/* ⭐ Admin Button (Desktop) */}
+          <Link
+            to="/admin"
+            className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 transition shadow-sm"
+          >
+            Admin
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -80,19 +92,31 @@ const Navbar = () => {
         }`}
       >
         <div className="flex flex-col gap-4">
+
           {navLinks.map((item) => (
             <a
               key={item.name}
               href={item.href}
-              className="text-lg font-medium text-slate-800 hover:text-orange-500 p-3 rounded-lg hover:bg-orange-50 transition flex items-center justify-between group"
+              className="text-lg font-medium text-slate-800 hover:text-orange-500 
+                         p-3 rounded-lg hover:bg-orange-50 transition flex items-center 
+                         justify-between group"
               onClick={() => setIsOpen(false)}
             >
               {item.name}
-              <span className="text-orange-200 group-hover:text-orange-500 transition">
-                →
-              </span>
+              <span className="text-orange-200 group-hover:text-orange-500 transition">→</span>
             </a>
           ))}
+
+          {/* ⭐ Admin Button (Mobile) */}
+          <Link
+            to="/admin"
+            className="text-lg font-semibold text-white bg-orange-500 hover:bg-orange-600 
+                       p-3 rounded-lg text-center shadow-md"
+            onClick={() => setIsOpen(false)}
+          >
+            Admin
+          </Link>
+
         </div>
       </div>
     </nav>

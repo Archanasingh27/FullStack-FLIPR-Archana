@@ -11,9 +11,25 @@ const AdminClients = () => {
     image: null,
   });
 
+  // ✅ FIXED FETCH FUNCTION
   const fetchClients = async () => {
-    const res = await API.get("/api/clients");
-    setClients(res.data);
+    try {
+      const res = await API.get("/api/clients");
+
+      console.log("CLIENT API RESPONSE:", res.data);
+
+     
+      if (Array.isArray(res.data)) {
+        setClients(res.data);
+      } else if (Array.isArray(res.data.clients)) {
+        setClients(res.data.clients);
+      } else {
+        setClients([]);
+      }
+
+    } catch (error) {
+      console.error("Fetch clients error:", error);
+    }
   };
 
   useEffect(() => {
@@ -29,15 +45,19 @@ const AdminClients = () => {
     formData.append("clientDesignation", form.designation);
     formData.append("clientDescription", form.description);
 
-    await API.post("/api/clients/add", formData);
-
-    setForm({ name: "", designation: "", description: "", image: null });
-    fetchClients();
+    try {
+      await API.post("/api/clients/add", formData);
+      setForm({ name: "", designation: "", description: "", image: null });
+      fetchClients();
+    } catch (error) {
+      console.error("Add client error:", error);
+    }
   };
 
   return (
     <div className="grid lg:grid-cols-3 gap-8">
 
+      {/* ✅ ADD CLIENT FORM */}
       <div className="bg-white p-6 rounded-xl border">
         <h3 className="font-bold mb-4">Add Client</h3>
 
@@ -78,11 +98,13 @@ const AdminClients = () => {
         </form>
       </div>
 
+      {/* ✅ CLIENT LIST */}
       <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
         {clients.map((c) => (
           <div key={c._id} className="bg-white p-4 border rounded flex gap-3">
             <img
-              src={`${import.meta.env.VITE_API_URL}/uploads/${c.clientImage}`}
+              
+              src={`${API.defaults.baseURL}/uploads/${c.clientImage}`}
               className="w-16 h-16 rounded-full object-cover"
               alt={c.clientName}
             />

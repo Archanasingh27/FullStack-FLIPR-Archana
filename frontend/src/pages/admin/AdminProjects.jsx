@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import ImageCropper from "../../components/ImageCropper"; 
 import API from "../../services/api";
 
-
 const AdminProjects = () => {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState([]); 
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -15,16 +13,26 @@ const AdminProjects = () => {
   const [imageSrc, setImageSrc] = useState(null);
   const [showCropper, setShowCropper] = useState(false);
 
+ 
   const fetchProjects = async () => {
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/projects`);
-    setProjects(res.data);
+    try {
+      const res = await API.get("/api/projects");
+      console.log("Projects API:", res.data);
+
+      setProjects(
+        Array.isArray(res.data) ? res.data : res.data.projects || []
+      );
+    } catch (error) {
+      console.error("Fetch projects error:", error);
+      setProjects([]);
+    }
   };
 
   useEffect(() => {
     fetchProjects();
   }, []);
 
-  // ✅ Select image → open cropper
+  // ✅ Select image 
   const handleImageSelect = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -34,24 +42,29 @@ const AdminProjects = () => {
     setShowCropper(true);
   };
 
-  // ✅ Receive cropped image from ImageCropper
+  // ✅ Receive cropped image
   const handleCropDone = (croppedFile) => {
     setForm({ ...form, image: croppedFile });
     setShowCropper(false);
   };
 
+  // ✅ Submit Project
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append("projectImage", form.image);
-    formData.append("projectName", form.name);
-    formData.append("projectDescription", form.description);
+    try {
+      const formData = new FormData();
+      formData.append("projectImage", form.image);
+      formData.append("projectName", form.name);
+      formData.append("projectDescription", form.description);
 
-    await axios.post(`${import.meta.env.VITE_API_URL}/api/projects/add`, formData);
+      await API.post("/api/projects/add", formData);
 
-    setForm({ name: "", description: "", image: null });
-    fetchProjects();
+      setForm({ name: "", description: "", image: null });
+      fetchProjects();
+    } catch (error) {
+      console.error("Add project error:", error);
+    }
   };
 
   return (
@@ -101,21 +114,29 @@ const AdminProjects = () => {
 
       {/* ✅ PROJECT LIST */}
       <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
-        {projects.map((p) => (
-          <div key={p._id} className="bg-white border rounded">
-            <img
-              src={`${import.meta.env.VITE_API_URL}/uploads/${p.projectImage}`}
-              className="h-40 w-full object-cover"
-              alt=""
-            />
-            <div className="p-4">
-              <h4 className="font-bold">{p.projectName}</h4>
-              <p className="text-sm text-gray-600">
-                {p.projectDescription}
-              </p>
+        {projects.length === 0 ? (
+          <p className="text-slate-400 col-span-full text-center">
+            No projects added yet
+          </p>
+        ) : (
+          projects.map((p) => (
+            <div key={p._id} className="bg-white border rounded">
+              <img
+                src={`${API.defaults.baseURL.replace("/api", "")}/uploads/${p.projectImage}`}
+                className="h-40 w-full object-cover"
+                alt={p.projectName}
+                onError={(e) => (e.target.src = "/no-image.png")}
+              />
+
+              <div className="p-4">
+                <h4 className="font-bold">{p.projectName}</h4>
+                <p className="text-sm text-gray-600">
+                  {p.projectDescription}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
     </div>
