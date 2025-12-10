@@ -86,8 +86,9 @@ const AdminClients = () => {
         {clients.map((c) => (
           <div key={c._id} className="bg-white p-4 border rounded flex gap-3">
             <img
-              src={`https://fullstack-flipr-archana.onrender.com/uploads/${c.clientImage}`}
+              src={`${import.meta.env.VITE_API_URL}/uploads/${c.clientImage}`}
               className="w-16 h-16 rounded-full object-cover"
+              alt={c.clientName}
             />
 
             <div>

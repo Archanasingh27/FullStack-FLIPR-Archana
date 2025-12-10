@@ -49,7 +49,7 @@ const Projects = () => {
 
                 {/* ✅ IMAGE  */}
                 <img
-                  src={`https://fullstack-flipr-archana.onrender.com/uploads/${project.projectImage}`}
+                  src={`${import.meta.env.VITE_API_URL}/uploads/${project.projectImage}`}
                   alt={project.projectName}
                   className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700"
                 />

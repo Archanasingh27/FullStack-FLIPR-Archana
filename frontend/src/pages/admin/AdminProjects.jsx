@@ -14,7 +14,7 @@ const AdminProjects = () => {
   const [showCropper, setShowCropper] = useState(false);
 
   const fetchProjects = async () => {
-    const res = await (`${import.meta.env.VITE_API_URL}/api/projects`) ;
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/projects`);
     setProjects(res.data);
   };
 
@@ -46,7 +46,7 @@ const AdminProjects = () => {
     formData.append("projectName", form.name);
     formData.append("projectDescription", form.description);
 
-    await axios.post("http://localhost:5000/api/projects/add", formData);
+    await axios.post(`${import.meta.env.VITE_API_URL}/api/projects/add`, formData);
 
     setForm({ name: "", description: "", image: null });
     fetchProjects();
@@ -102,7 +102,7 @@ const AdminProjects = () => {
         {projects.map((p) => (
           <div key={p._id} className="bg-white border rounded">
             <img
-              src={`http://localhost:5000/uploads/${p.projectImage}`}
+              src={`${import.meta.env.VITE_API_URL}/uploads/${p.projectImage}`}
               className="h-40 w-full object-cover"
               alt=""
             />
