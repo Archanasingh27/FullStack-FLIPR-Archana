@@ -33,7 +33,11 @@ const Clients = () => {
             >
               <div className="w-20 h-20 mx-auto mb-6 relative">
                 <img
+
                   src={`${import.meta.env.VITE_API_URL}/uploads/${client.clientImage}`}
+
+                 
+
                   alt={client.clientName}
                   className="w-full h-full rounded-full object-cover shadow-lg border-4 border-white group-hover:scale-105 transition"
                 />
