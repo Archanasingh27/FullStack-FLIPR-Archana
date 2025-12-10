@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../services/api";
 
 const AdminClients = () => {
   const [clients, setClients] = useState([]);
@@ -11,9 +11,8 @@ const AdminClients = () => {
     image: null,
   });
 
-  
   const fetchClients = async () => {
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/clients`);
+    const res = await API.get("/api/clients");
     setClients(res.data);
   };
 
@@ -21,7 +20,6 @@ const AdminClients = () => {
     fetchClients();
   }, []);
 
-  // ADD CLIENT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,7 +29,7 @@ const AdminClients = () => {
     formData.append("clientDesignation", form.designation);
     formData.append("clientDescription", form.description);
 
-    await axios.post(`${import.meta.env.VITE_API_URL}/api/clients/add`, formData);
+    await API.post("/api/clients/add", formData);
 
     setForm({ name: "", designation: "", description: "", image: null });
     fetchClients();
@@ -40,7 +38,6 @@ const AdminClients = () => {
   return (
     <div className="grid lg:grid-cols-3 gap-8">
 
-      {/* ADD CLIENT FORM */}
       <div className="bg-white p-6 rounded-xl border">
         <h3 className="font-bold mb-4">Add Client</h3>
 
@@ -81,7 +78,6 @@ const AdminClients = () => {
         </form>
       </div>
 
-      {/* CLIENT LIST */}
       <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
         {clients.map((c) => (
           <div key={c._id} className="bg-white p-4 border rounded flex gap-3">
