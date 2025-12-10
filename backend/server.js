@@ -12,10 +12,23 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors ({
-    origin: 'http://localhost:5173',
-    credentials: true,
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://fullstack-flipr-archana-1.onrender.com"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS blocked: " + origin));
+    }
+  },
+  credentials: true
 }));
+
+app.options("*", cors());
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
