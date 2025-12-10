@@ -33,7 +33,7 @@ const Clients = () => {
             >
               <div className="w-20 h-20 mx-auto mb-6 relative">
                 <img
-                  src={`http://localhost:5000/uploads/${client.clientImage}`}
+                  src{`https://fullstack-flipr-archana.onrender.com/uploads/${client.clientImage}`}
                   alt={client.clientName}
                   className="w-full h-full rounded-full object-cover shadow-lg border-4 border-white group-hover:scale-105 transition"
                 />
