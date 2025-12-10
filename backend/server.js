@@ -48,10 +48,11 @@ const __dirname = path.dirname(__filename);
 // Serve frontend dist folder
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-// After all API routes → handle all frontend routes
-app.get("*", (req, res) => {
+// Handle all other frontend routes 
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
 });
+
 
 // ------------ START SERVER ------------
 const PORT = process.env.PORT || 5000;
